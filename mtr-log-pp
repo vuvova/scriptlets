@@ -1,0 +1,22 @@
+#!/usr/bin/perl -w
+
+unless ($file=shift) {
+  for (qw/typescript test stdio/) {
+    $file=$_, last if -e $_;
+  }
+}
+
+die "No <$file>" unless -e $file;
+
+rename $file, "$file~" or die "rename($file, $file~): $!";
+open (I, '<', "$file~") or die "open(<$file~): $!";
+open (O, '>', $file) or die "open(>$file): $!";
+
+while(<I>) {
+  s/\e\[\d+m//g;
+  s/\e.*\a//;
+  s/[\r\n\a]//g;
+  s/^worker\[0*(\d+)\]/w$1/;
+  s/ '(.+?)'( +w\d+ \[ [-a-z]+ \])/,$1 $2/;
+  print O "$_\n";
+}
