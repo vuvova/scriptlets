@@ -75,3 +75,27 @@ becomes
 That is, control characters are removed. One can grep for "w2" to
 find all tests of the second worker and when it was restarted.
 And one can easily copy-paste tests that were run (note "test,c1").
+
+# gdbinit
+
+Defines helper commands for using with `./mtr --gdb`
+See inside, all commands are documented.
+
+Also loads .gdb.py (see below)
+
+# gdb.py
+
+Python part of .gdbinit. Needs gdb-tools
+(see https://github.com/vuvova/gdb-tools)
+Loads duel and creates pretty-printers for various data structures.
+To use, just print values normally, for example
+
+    (gdb) p table->alias
+    $1 = _binary "plugin"
+    (gdb) p table->tmp_set
+    $5 = b'00'
+    (gdb) p/r table->tmp_set
+    $6 = {bitmap = 0x7ffff4c19830, last_word_ptr = 0x7ffff4c19830, mutex = 0x0,
+      last_word_mask = 4294967292, n_bits = 2}
+
+the last example shows `p/r` command to bypass a pretty-printer, if needed.
