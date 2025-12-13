@@ -105,6 +105,26 @@ the last example shows `p/r` command to bypass a pretty-printer, if needed.
 The name says it all. Bash command line completion for mtr.
 Use as `source mtr-bash-completion.sh` from your `.bashrc`
 
+# make-and-run-mtr
+
+Does what the name says. Runs `make` (or `ninja`, auto-detects what tool to
+run), then runs mtr. Passes all arguments to mtr. Except when the very first
+argument is `!` - it is not passed to mtr. It's designed to be used as, for
+example:
+
+    git bisect run make-and-run-mtr main.foo rpl.bar --repeat 10
+
+this will run bisect in automatic mode to find a commit when mtr started
+failing. If the first argument is `!` the return value is inverted:
+
+    git bisect run make-and-run-mtr ! main.grant
+
+will find the first commit when main.grant **stopped** failing.
+
+Returns 125 (git bisect skip) on compilation failures or when git bisect
+checks out a commit outside of the good..bad history line. This prevents
+it from following merges down into earlier versions.
+
 # bookmarklets.html
 
 ## ANSIfy

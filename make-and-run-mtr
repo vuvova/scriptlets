@@ -1,0 +1,21 @@
+#!/bin/sh
+
+if [ "$1" = "!" ]; then
+  not="!"
+  shift
+fi
+
+good=`git rev-parse --glob=refs/bisect/good-*|head -1`
+git log @..$good --exit-code >/dev/null || exit 125
+
+if [ -r build.ninja ]; then
+  MAKE=ninja
+else
+  MAKE='make -j'`grep -c processor /proc/cpuinfo`
+fi
+
+$MAKE || exit 125
+
+cd mysql-test
+./mtr "$@"
+exit $(( $not $? ))
