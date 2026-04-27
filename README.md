@@ -125,6 +125,11 @@ Returns 125 (git bisect skip) on compilation failures or when git bisect
 checks out a commit outside of the good..bad history line. This prevents
 it from following merges down into earlier versions.
 
+# Jira auto bug category
+
+Changes bug category to "Not for Release Notes" if the "Resolution"
+is not "Fixed" (but, for example, "Cannot Reproduce" or "Not a Bug")
+
 # bookmarklets.html
 
 ## ANSIfy
