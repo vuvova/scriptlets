@@ -158,3 +158,21 @@ def pthread_rwlock_t(val):
 @PrettyPrinter('List<>')
 def List_template(val):
     return "{} {}'s".format(val['elements'], val.type.template_argument(0).name)
+
+@PrettyPrinter
+def decimal_t(val):
+    res=''
+    intg=(val['intg']+8)/9
+    frac=(val['frac']+8)/9
+    buf=val['buf']
+    if intg:
+        res+=('%0'+str(val['intg'])+'d') % buf[0]
+        for i in range(1,intg):
+            res+='%09d' % buf[i]
+    else:
+        res+='0'
+    if frac:
+        res+='.'
+        for i in range(intg,intg+frac):
+            res+='%09d' % buf[i]
+    return res
