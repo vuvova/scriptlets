@@ -125,10 +125,15 @@ Returns 125 (git bisect skip) on compilation failures or when git bisect
 checks out a commit outside of the good..bad history line. This prevents
 it from following merges down into earlier versions.
 
-# Jira auto bug category
+# jira-auto-bug-category.user.js
 
-Changes bug category to "Not for Release Notes" if the "Resolution"
-is not "Fixed" (but, for example, "Cannot Reproduce" or "Not a Bug")
+Userscript that changes bug category to "Not for Release Notes" if the
+"Resolution" is not "Fixed" (but, for example, "Cannot Reproduce" or "Not a
+Bug")
+
+# MDEVs-auto-linking-in-PRs.user.js
+
+Userscript that changes MDEV-xxx in the PR title into a hyperlink to Jira.
 
 # bookmarklets.html
 
