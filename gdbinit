@@ -22,6 +22,13 @@ define rf
   reverse-finish
 end
 
+define record0
+  p ($arg0)->record[0][0] @ ($arg0)->s->reclength
+end
+document record0
+Print a record[0] of a TABLE
+end
+
 define record0u
   p/u ($arg0)->record[0][0] @ ($arg0)->s->reclength
 end
